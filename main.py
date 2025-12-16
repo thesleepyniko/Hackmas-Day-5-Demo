@@ -11,7 +11,7 @@ app = flask.Flask(
 limiter = Limiter(
     get_remote_address,
     app=app,
-    default_limits=["200 per day"],
+    default_limits=["2 per day"], # This is due to this being a public demo :pf:
     storage_uri="memory://",
 )
 
