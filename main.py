@@ -15,6 +15,18 @@ limiter = Limiter(
     storage_uri="memory://",
 )
 
+conn = sqlite3.connect('gifts.db') 
+cursor = conn.cursor()  
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS gifts (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        gift TEXT NOT NULL
+    )
+''')
+conn.commit()  
+conn.close()
+
 @app.get("/")
 @limiter.exempt
 def index():
@@ -46,15 +58,4 @@ def get_gifts():
     return flask.jsonify(gifts)
 
 if __name__ == "__main__":
-    conn = sqlite3.connect('gifts.db') 
-    cursor = conn.cursor()  
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS gifts (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            gift TEXT NOT NULL
-        )
-    ''')
-    conn.commit()  
-    conn.close()
     app.run()
