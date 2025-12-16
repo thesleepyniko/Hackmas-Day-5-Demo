@@ -28,7 +28,7 @@ form.addEventListener("submit", async (event) => {
     });
 
     form.reset();
-    loadGifts(); 
+    await loadGifts(); 
 });
 
 loadGifts();
